@@ -2,7 +2,11 @@ package config
 
 // config.go es el archivo que debe encargarse de cargar las variables de entorno
 
-import "os"
+import (
+	"os"
+
+	"github.com/joho/godotenv"
+)
 
 type Config struct {
 	AppPort    string
@@ -16,12 +20,14 @@ type Config struct {
 }
 
 func Load() Config {
+	_ = godotenv.Load()
+
 	return Config{
 		AppPort:    getEnv("APP_PORT", "8080"),
 		DBHost:     getEnv("DB_HOST", "localhost"),
 		DBPort:     getEnv("DB_PORT", "5433"),
-		DBUser:     getEnv("DB_USER", "postgres"),
-		DBPassword: getEnv("DB_PASSWORD", ""),
+		DBUser:     getEnv("DB_USER", "erp_user"),
+		DBPassword: getEnv("DB_PASSWORD", "viajes123."),
 		DBName:     getEnv("DB_NAME", "erp_interno"),
 		DBSSLMode:  getEnv("DB_SSLMODE", "disable"),
 		DBTimeZone: getEnv("DB_TIMEZONE", "UTC"),

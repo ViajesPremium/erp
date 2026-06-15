@@ -20,6 +20,10 @@ func main() {
 
 	_ = db
 
+	if err := database.Migrate(db); err != nil {
+		log.Fatalf("database migration failed: %v", err)
+	}
+
 	router := gin.Default()
 
 	router.GET("/", func(c *gin.Context) {
